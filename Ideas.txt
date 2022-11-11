@@ -1,5 +1,0 @@
-Mirilla
-Cambiar modelos a latas
-Agregar munición limitada + Animación de recarga + Modelo de la mano (revólver) (lleva tiempo)
-Al mantener pulsado clic derecho: enfocar + pantalla mÃ¡s oscura + realentizar (difÃ­cil)
-UI y pantalla de inicio (opcional)
