@@ -1,7 +1,5 @@
 Mirilla
 Cambiar modelos a latas
-Agregar munici贸n limitada + Animaci贸n de recarga + Modelo de la mano (rev贸lver) (lleva tiempo)
+Agregar munici髇 limitada + Animaci髇 de recarga + Modelo de la mano (rev髄ver) (lleva tiempo)
 Al mantener pulsado clic derecho: enfocar + pantalla m谩s oscura + realentizar (dif铆cil)
-Tiempo de juego
-Puntuaci贸n
 UI y pantalla de inicio (opcional)
