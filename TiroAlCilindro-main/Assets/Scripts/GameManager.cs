@@ -4,21 +4,22 @@ using UnityEngine;
 using TMPro;
 
 public class GameManager: MonoBehaviour {
-    //public Material hitMaterial;
+    public Material hitMaterial;
     public AudioClip shotCan, shotAir, shotSound, reloadGun, gunCocking;
     public Canvas canvasUI;
+    //public GameObject reloadBar;
     private AudioSource gunAudioSource;
 
     [SerializeField]
     TextMeshProUGUI puntuacion, tiempo, municion;
 
     float shotStrength = 50f, timeInSeconds = 0f, reloadTime = 2.5f;
-    int timeInMinutes = 0;
-    public int score = 0;
+    int timeInMinutes = 0, score = 0;
     int ammo = 6;
 
     void Awake () {
         gunAudioSource = GetComponent<AudioSource> ();
+        //reloadBar.SetActive (false);
 
     }
     // Update is called once per frame
@@ -32,8 +33,6 @@ public class GameManager: MonoBehaviour {
         tiempo.text = timeInMinutes.ToString () + ":" + timeInSeconds.ToString ("00");
         puntuacion.text = "SCORE: " + score.ToString ();
         municion.text = ammo.ToString () + " /6";
-
-
 
         // Si el número de veces clicado en pantalla es mayor o igual que uno Y se ha dejado de pulsar el clic izquierdo, o si se ha dejado de pulsar el botón:
         if (((Input.touchCount >= 1 && Input.GetTouch (0).phase == TouchPhase.Ended) || (Input.GetMouseButtonUp (0)) && ammo >= 1)) // (0 = botón izq., 1 = botón cent., 2= botón der.)
@@ -54,22 +53,29 @@ public class GameManager: MonoBehaviour {
                     score += 10;
                     Rigidbody rigidbodyLata = hitInfo.collider.GetComponent<Rigidbody> ();
                     rigidbodyLata.AddForce (rayo.direction * shotStrength, ForceMode.VelocityChange);
-                    //hitInfo.collider.GetComponent<MeshRenderer> ().material = hitMaterial;
+                    hitInfo.collider.GetComponent<MeshRenderer> ().material = hitMaterial;
 
                 } else if (hitInfo.collider.tag.Equals ("Vacio")) {
                     gunAudioSource.PlayOneShot (shotAir);
                     score -= 5;
                 }
             }
-        } else if ((ammo <= 0) && reloadTime >= 0.0f) {
+
+        } else if (((ammo <= 0) || Input.GetKey ("r")) && reloadTime >= 0.0f) {
+            //reloading ();
             reloadTime -= Time.deltaTime;
-            
-        } else if ((ammo <= 0) && reloadTime <= 0.0f) {
+
+        } else if (reloadTime <= 0.0f) {
             reloadTime = 2.5f;
             gunAudioSource.PlayOneShot (gunCocking);
             ammo = 6;
-        } else if ((ammo <= 0) && reloadTime >= 2.5f) {
+
+        } else if (((ammo <= 0) || Input.GetKey ("r")) && reloadTime >= 2.5f) {
             gunAudioSource.PlayOneShot (reloadGun);
         }
+
+        /*void reloading () {
+            reloadBar.SetActive (true);
+        }*/
     }
 }
